@@ -13,7 +13,7 @@ public class Proposta {
     private Long id;
     private String nome;
     private String email;
-    private String cpf_cnpj;
+    private String documento;
     private String endereco;
     private BigDecimal salario;
 
@@ -21,10 +21,10 @@ public class Proposta {
     public Proposta() {
     }
 
-    public Proposta(String nome, String email, String cpf_cnpj, String endereco, BigDecimal salario) {
+    public Proposta(String nome, String email, String documento, String endereco, BigDecimal salario) {
         this.nome = nome;
         this.email = email;
-        this.cpf_cnpj = cpf_cnpj;
+        this.documento = documento;
         this.endereco = endereco;
         this.salario = salario;
     }
@@ -41,8 +41,8 @@ public class Proposta {
         return email;
     }
 
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
+    public String getDocumento() {
+        return documento;
     }
 
     public String getEndereco() {

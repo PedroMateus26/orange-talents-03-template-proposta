@@ -1,9 +1,8 @@
 package com.zupacademy.MicroservicoPropota.proposta.dtos;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.zupacademy.MicroservicoPropota.exception_handler.validators.cpf_cnpj.PessoaFisica;
+import com.zupacademy.MicroservicoPropota.exception_handler.validators.cpf_cnpj.PessoaJuridica;
 import com.zupacademy.MicroservicoPropota.proposta.Proposta;
-import com.zupacademy.MicroservicoPropota.validators.cpf_cnpj.PessoaFisica;
-import com.zupacademy.MicroservicoPropota.validators.cpf_cnpj.PessoaJuridica;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -28,7 +27,7 @@ public class PropostaRequestDTO {
     @NotNull(message = "O cpf ou cnpj é obrigatório")
     @CPF(groups = PessoaFisica.class)
     @CNPJ(groups = PessoaJuridica.class)
-    private String cpf_cnpj;
+    private String documento;
 
     @NotBlank(message = "O endereço não pode estar em branco")
     @NotNull(message = "O endereço é obrigatório")
@@ -38,10 +37,10 @@ public class PropostaRequestDTO {
     @NotNull(message = "O salário é obrigatório")
     private BigDecimal salario;
 
-    public PropostaRequestDTO(String nome, String email, String cpf_cnpj, String endereco, BigDecimal salario) {
+    public PropostaRequestDTO(String nome, String email, String documento, String endereco, BigDecimal salario) {
         this.nome = nome;
         this.email = email;
-        this.cpf_cnpj = cpf_cnpj;
+        this.documento = documento;
         this.endereco = endereco;
         this.salario = salario;
     }
@@ -54,8 +53,8 @@ public class PropostaRequestDTO {
         return email;
     }
 
-    public String getCpf_cnpj() {
-        return cpf_cnpj;
+    public String getDocumento() {
+        return documento;
     }
 
     public String getEndereco() {
@@ -70,7 +69,7 @@ public class PropostaRequestDTO {
         return new Proposta(
                 this.nome,
                 this.email,
-                this.cpf_cnpj,
+                this.documento,
                 this.endereco,
                 this.salario
         );
