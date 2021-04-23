@@ -1,9 +1,9 @@
 package com.zupacademy.MicroservicoPropota.proposta;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.zupacademy.MicroservicoPropota.clientes.SituacaoDoCartao;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,11 +11,19 @@ public class Proposta {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String documento;
+    @Column(nullable = false)
     private String endereco;
+    @Column(nullable = false)
     private BigDecimal salario;
+    @Enumerated(EnumType.STRING)
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private SituacaoDoCartao situacaoDoCartao;
 
     @Deprecated
     public Proposta() {
@@ -51,5 +59,13 @@ public class Proposta {
 
     public BigDecimal getSalario() {
         return salario;
+    }
+
+    public SituacaoDoCartao getSituacaoDoCartao() {
+        return situacaoDoCartao;
+    }
+
+    public void atualizaSituacaoCartao(SituacaoDoCartao situacaoDoCartao){
+        this.situacaoDoCartao=situacaoDoCartao;
     }
 }
