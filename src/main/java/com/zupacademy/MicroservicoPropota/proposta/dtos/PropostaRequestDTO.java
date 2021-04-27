@@ -1,8 +1,7 @@
 package com.zupacademy.MicroservicoPropota.proposta.dtos;
 
-import com.zupacademy.MicroservicoPropota.clientes.SituacaoDoCartao;
-import com.zupacademy.MicroservicoPropota.exception_handler.validators.cpf_cnpj.PessoaFisica;
-import com.zupacademy.MicroservicoPropota.exception_handler.validators.cpf_cnpj.PessoaJuridica;
+import com.zupacademy.MicroservicoPropota.validadores.exception_handler.validators.cpf_cnpj.PessoaFisica;
+import com.zupacademy.MicroservicoPropota.validadores.exception_handler.validators.cpf_cnpj.PessoaJuridica;
 import com.zupacademy.MicroservicoPropota.proposta.Proposta;
 import org.hibernate.validator.constraints.br.CNPJ;
 import org.hibernate.validator.constraints.br.CPF;

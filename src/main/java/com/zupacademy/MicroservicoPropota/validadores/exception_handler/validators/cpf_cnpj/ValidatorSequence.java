@@ -1,4 +1,4 @@
-package com.zupacademy.MicroservicoPropota.exception_handler.validators.cpf_cnpj;
+package com.zupacademy.MicroservicoPropota.validadores.exception_handler.validators.cpf_cnpj;
 
 import com.zupacademy.MicroservicoPropota.proposta.dtos.PropostaRequestDTO;
 import org.hibernate.validator.spi.group.DefaultGroupSequenceProvider;

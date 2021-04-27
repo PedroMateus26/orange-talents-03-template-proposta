@@ -1,4 +1,4 @@
-package com.zupacademy.MicroservicoPropota.exception_handler;
+package com.zupacademy.MicroservicoPropota.validadores.exception_handler;
 
 import java.util.ArrayList;
 import java.util.Collection;

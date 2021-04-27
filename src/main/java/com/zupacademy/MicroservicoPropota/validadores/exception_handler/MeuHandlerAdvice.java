@@ -1,4 +1,4 @@
-package com.zupacademy.MicroservicoPropota.exception_handler;
+package com.zupacademy.MicroservicoPropota.validadores.exception_handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

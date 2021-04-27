@@ -1,4 +1,4 @@
-package com.zupacademy.MicroservicoPropota.exception_handler;
+package com.zupacademy.MicroservicoPropota.validadores.exception_handler;
 
 import org.springframework.http.HttpStatus;
 
@@ -12,6 +12,7 @@ public class ApiErroException extends RuntimeException{
         this.httpStatus = httpStatus;
         this.reason = reason;
     }
+
 
     public HttpStatus getHttpStatus() {
         return httpStatus;

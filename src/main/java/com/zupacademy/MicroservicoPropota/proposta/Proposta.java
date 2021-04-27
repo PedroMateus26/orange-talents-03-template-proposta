@@ -25,6 +25,9 @@ public class Proposta {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private SituacaoDoCartao situacaoDoCartao;
 
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private String numeroCartao;
+
     @Deprecated
     public Proposta() {
     }
@@ -65,7 +68,15 @@ public class Proposta {
         return situacaoDoCartao;
     }
 
+    public String getNumeroCartao() {
+        return numeroCartao;
+    }
+
     public void atualizaSituacaoCartao(SituacaoDoCartao situacaoDoCartao){
         this.situacaoDoCartao=situacaoDoCartao;
+    }
+
+    public void associaNumeroCartao(String numeroCartao){
+        this.numeroCartao=numeroCartao;
     }
 }

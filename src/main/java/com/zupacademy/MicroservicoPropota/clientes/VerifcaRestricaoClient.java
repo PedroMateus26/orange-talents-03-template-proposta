@@ -11,6 +11,7 @@ public interface VerifcaRestricaoClient {
     @RequestMapping(method = RequestMethod.POST)
     ResponseEntity<VerificaRestricaoFeignResponse> response(VerificaRestricaoFeignRequest verificaRestricaoFeignRequest);
 
+
 }
 
 
