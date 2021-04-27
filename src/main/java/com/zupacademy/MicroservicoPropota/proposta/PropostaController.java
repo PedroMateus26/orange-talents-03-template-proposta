@@ -7,10 +7,7 @@ import com.zupacademy.MicroservicoPropota.proposta.dtos.PropostaResponseDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -44,6 +41,15 @@ public class PropostaController {
         proposta=propostaRepository.save(proposta);
         PropostaResponseDTO responseDTO=new PropostaResponseDTO(proposta);
         return ResponseEntity.ok().body(responseDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> retornaPropostaPeloId(@PathVariable Long id){
+        Proposta proposta = propostaRepository.findById(id)
+                .orElseThrow(()->new ApiErroException(HttpStatus
+                        .valueOf(404),"Proposta não encontrada para o id: "+id));
+        PropostaResponseDTO propostaResponseDTO= new PropostaResponseDTO(proposta,proposta.getSituacaoDoCartao());
+        return ResponseEntity.ok().body(propostaResponseDTO);
     }
 
 }
