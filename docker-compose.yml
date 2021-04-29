@@ -134,6 +134,16 @@ services:
       VAULT_TOKEN: ee413645-dbe8-4848-afc6-6bb2768ada75
       VAULT_ADDR: http://127.0.0.1:8200
 
+  micro_servicos_proposta:
+    build: ./
+    image: microservico-propota
+    ports:
+      - 8080:8080
+    environment:
+      PERIODICIDADE_EXECUTA_TAREFA: 1000
+      ASSOCIA_CARTAO: http://contas:8888/api/cartoes
+      ASSOCIA_NUMERO: http://analise:9999/api/solicitacao
+
 volumes:
   grafana-volume:
   prometheus-volume:

@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@FeignClient(value = "verificacoes",url = "http://localhost:9999/api/solicitacao")
+@FeignClient(value = "verificacoes",url = "${endereco.verifica-elegibilidade}")
 public interface VerifcaRestricaoClient {
 
     @RequestMapping(method = RequestMethod.POST)

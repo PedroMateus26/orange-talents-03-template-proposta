@@ -9,6 +9,8 @@ import com.zupacademy.MicroservicoPropota.clientes.VerificaRestricaoFeignRespons
 import com.zupacademy.MicroservicoPropota.proposta.Proposta;
 import com.zupacademy.MicroservicoPropota.proposta.PropostaRepository;
 import com.zupacademy.MicroservicoPropota.validadores.exception_handler.ApiErroException;
+import feign.FeignException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -28,6 +30,7 @@ public class ValidaDadosDeServicosExteriores {
 
     private CriacaoCartao criacaoCartao;
 
+
     public ValidaDadosDeServicosExteriores(PropostaRepository propostaRepository, VerifcaRestricaoClient verifcaRestricaoClient, CriacaoCartao criacaoCartao) {
         this.propostaRepository = propostaRepository;
         this.verifcaRestricaoClient = verifcaRestricaoClient;
@@ -37,37 +40,28 @@ public class ValidaDadosDeServicosExteriores {
     @Transactional
     public SituacaoDoCartao verificaElegibilidadeDaProposta(Proposta proposta){
 
-        String URL = "http://localhost:9999/api/solicitacao";
-
-        try(Socket socket =
-                    new Socket(new java.net.URL(URL).getHost(),9999)) {
-
             VerificaRestricaoFeignRequest verificaRestricaoFeignRequest = new VerificaRestricaoFeignRequest(proposta);
             ResponseEntity<VerificaRestricaoFeignResponse> verificaRestricaoFeignResponse = verifcaRestricaoClient.response(verificaRestricaoFeignRequest);
             SituacaoDoCartao situacaoDoCartao = verificaRestricaoFeignResponse.getBody().getSituacaoDoCartao();
             return situacaoDoCartao;
-        }catch (Exception e){
-            throw new ApiErroException(HttpStatus.valueOf(400), "Erro ao tentar conectar ao serviço externo. Erro: "+e.getMessage());
-        }
     }
 
     @Scheduled(fixedDelayString = "${periodicidade.executa-tarefa}")
     @Transactional
     public void verificaElegibilidade(){
-        String URL = "http://localhost:8888/api/contas";
-        try (Socket socket =
-                     new Socket(new java.net.URL(URL).getHost(), 8888)) {
 
+        try {
             List<Proposta> propostas = propostaRepository
                     .findAllByNumeroCartaoIsNullAndSituacaoDoCartao(SituacaoDoCartao.ELEGIVEL);
             propostas.forEach(proposta -> {
                 VerificaRestricaoFeignRequest verificaRestricaoFeignRequest = new VerificaRestricaoFeignRequest(proposta);
-                ResponseEntity<CartaoCriadoResponse> idCartao=criacaoCartao.verificaNumeroCartao(verificaRestricaoFeignRequest);
+                ResponseEntity<CartaoCriadoResponse> idCartao = criacaoCartao.verificaNumeroCartao(verificaRestricaoFeignRequest);
                 proposta.associaNumeroCartao(idCartao.getBody().getId());
                 System.out.println(proposta.getNumeroCartao());
             });
-        } catch (Exception e) {
-            throw new ApiErroException(HttpStatus.valueOf(400),"Erro ao tentar o serviço: "+e.getMessage());
+        }catch (FeignException e){
+            throw new ApiErroException(HttpStatus.BAD_REQUEST,
+                    "Não foi possível conectar ao sistema. Erro: "+e.getMessage());
         }
 
     }
