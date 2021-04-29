@@ -1,10 +1,12 @@
 package com.zupacademy.MicroservicoPropota.proposta;
 
+import com.zupacademy.MicroservicoPropota.cartoes.Cartao;
 import com.zupacademy.MicroservicoPropota.clientes.SituacaoDoCartao;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @Entity
 public class Proposta {
@@ -25,8 +27,8 @@ public class Proposta {
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private SituacaoDoCartao situacaoDoCartao;
 
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    private String numeroCartao;
+    @OneToOne(cascade = CascadeType.ALL)
+    private Cartao cartao;
 
     @Deprecated
     public Proposta() {
@@ -68,15 +70,15 @@ public class Proposta {
         return situacaoDoCartao;
     }
 
-    public String getNumeroCartao() {
-        return numeroCartao;
+    public Cartao getCartao() {
+        return cartao;
     }
 
     public void atualizaSituacaoCartao(SituacaoDoCartao situacaoDoCartao){
         this.situacaoDoCartao=situacaoDoCartao;
     }
 
-    public void associaNumeroCartao(String numeroCartao){
-        this.numeroCartao=numeroCartao;
+    public void associaNumeroCartao(String idCartao){
+        this.cartao=new Cartao(idCartao);
     }
 }

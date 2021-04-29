@@ -52,13 +52,16 @@ public class ValidaDadosDeServicosExteriores {
 
         try {
             List<Proposta> propostas = propostaRepository
-                    .findAllByNumeroCartaoIsNullAndSituacaoDoCartao(SituacaoDoCartao.ELEGIVEL);
+                    .findAllByCartaoIdIsNullAndSituacaoDoCartao(SituacaoDoCartao.ELEGIVEL);
             propostas.forEach(proposta -> {
                 VerificaRestricaoFeignRequest verificaRestricaoFeignRequest = new VerificaRestricaoFeignRequest(proposta);
                 ResponseEntity<CartaoCriadoResponse> idCartao = criacaoCartao.verificaNumeroCartao(verificaRestricaoFeignRequest);
                 proposta.associaNumeroCartao(idCartao.getBody().getId());
-                System.out.println(proposta.getNumeroCartao());
+                System.out.println(proposta.getCartao().getId());
+
             });
+            propostaRepository.saveAll(propostas);
+            propostas.clear();
         }catch (FeignException e){
             throw new ApiErroException(HttpStatus.BAD_REQUEST,
                     "Não foi possível conectar ao sistema. Erro: "+e.getMessage());

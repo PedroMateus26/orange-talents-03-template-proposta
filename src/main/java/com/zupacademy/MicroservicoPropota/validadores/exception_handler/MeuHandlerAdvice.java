@@ -33,6 +33,6 @@ public class MeuHandlerAdvice {
         mensagens.add(apiErroException.getReason());
 
         ErroPadronizado erroPadronizado= new ErroPadronizado(mensagens);
-        return ResponseEntity.status(HttpStatus.valueOf(422)).body(erroPadronizado);
+        return ResponseEntity.status(apiErroException.getHttpStatus()).body(erroPadronizado);
     }
 }
