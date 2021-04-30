@@ -13,7 +13,7 @@ import javax.validation.Valid;
 
 
 @RestController
-@RequestMapping(value = "/propostas")
+@RequestMapping(value = "/api/propostas")
 public class PropostaController {
 
     private PropostaRepository propostaRepository;
