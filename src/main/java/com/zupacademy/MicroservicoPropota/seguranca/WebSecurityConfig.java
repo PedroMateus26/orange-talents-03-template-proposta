@@ -17,7 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public Environment env;
 
-    public static String [] AUTORIZADOS = {"api/propostas/**", "api/cartoes/**"};
+    public static String [] AUTORIZADOS = {"api/propostas/**", "api/cartoes/**","/actuator/**"};
 
     private static final String [] PUBLIC= {"/h2-console/**"};
 
