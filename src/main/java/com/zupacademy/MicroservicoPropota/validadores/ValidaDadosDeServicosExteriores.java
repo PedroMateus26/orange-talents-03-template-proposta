@@ -1,7 +1,7 @@
 package com.zupacademy.MicroservicoPropota.validadores;
 
 import com.zupacademy.MicroservicoPropota.cartoes.CartaoCriadoResponse;
-import com.zupacademy.MicroservicoPropota.cartoes.CriacaoCartao;
+import com.zupacademy.MicroservicoPropota.cartoes.requisicoes_feign.CriacaoCartao;
 import com.zupacademy.MicroservicoPropota.clientes.SituacaoDoCartao;
 import com.zupacademy.MicroservicoPropota.clientes.VerifcaRestricaoClient;
 import com.zupacademy.MicroservicoPropota.clientes.VerificaRestricaoFeignRequest;
@@ -10,15 +10,12 @@ import com.zupacademy.MicroservicoPropota.proposta.Proposta;
 import com.zupacademy.MicroservicoPropota.proposta.PropostaRepository;
 import com.zupacademy.MicroservicoPropota.validadores.exception_handler.ApiErroException;
 import feign.FeignException;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.net.Socket;
 import java.util.List;
 
 @Service
