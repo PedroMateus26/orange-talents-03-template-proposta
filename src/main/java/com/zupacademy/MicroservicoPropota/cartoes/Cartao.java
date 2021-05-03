@@ -1,6 +1,8 @@
 package com.zupacademy.MicroservicoPropota.cartoes;
 
 import com.zupacademy.MicroservicoPropota.cartoes.biometria.Biometria;
+import com.zupacademy.MicroservicoPropota.cartoes.bloqueio_Cartao.BloqueioCartao;
+import com.zupacademy.MicroservicoPropota.cartoes.bloqueio_Cartao.CartaoBloqueado;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,11 +23,16 @@ public class Cartao {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Biometria> biometrias= new ArrayList<>();
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private BloqueioCartao bloqueioCartao;
+
     public Cartao() {
     }
 
     public Cartao(String idCartao) {
+
         this.idCartao = idCartao;
+        this.bloqueioCartao = new BloqueioCartao(CartaoBloqueado.NÃO);
     }
 
 
@@ -41,7 +48,12 @@ public class Cartao {
         return biometrias;
     }
 
+    public BloqueioCartao getBloqueioCartao() {
+        return bloqueioCartao;
+    }
+
     public void adicionaBiometria(Biometria biometria){
         this.biometrias.add(biometria);
     }
+
 }
